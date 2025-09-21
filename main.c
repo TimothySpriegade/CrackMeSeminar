@@ -3,20 +3,21 @@
 #include <stdlib.h>
 #include <time.h>
 
-int getTracerPidStatus();
-int checkForProcesses();
-void xor_encrypt_decrypt(char *data, int len, char key);
-unsigned int simple_hash(const char *str);
-char *rot(char *str, int shift);
-char *base64_decode(const char *data);
+int notSus();
+int ritoPls();
+void fuckYouNvdia(char *data, int len, char key);
+unsigned int dontlook(const char *str);
+char *whereReplaySystem(char *str, int shift);
+char *summonersRift(const char *data);
 
 int main(void) {
     char input[33];
+    char *v2 = "DenuvoIstPerformant";
     printf("Enter a password: ");
     if (fgets(input, sizeof(input), stdin) != NULL) {
         input[strcspn(input, "\n")] = '\0';
         printf("You entered: %s\n", input);
-        if (rand() % 2 && getTracerPidStatus()) exit(1);
+        if (rand() % 2 && notSus()) exit(1);
         
         char part1[9], part2[9], part3[9], part4[9];
         
@@ -24,7 +25,7 @@ int main(void) {
         strncpy(part1, input, 8);
         part1[8] = '\0';
         char encrypted1[] = {0x12, 0x23, 0x31, 0x31, 0x35, 0x2D, 0x30, 0x26, 0x00};
-        xor_encrypt_decrypt(encrypted1, 8, 0x42);
+        fuckYouNvdia(encrypted1, 8, 0x42);
         
         //encrypion
         char part2_2[9];
@@ -42,28 +43,31 @@ int main(void) {
         strncpy(part4, input + 24, 8);
         part4[8] = '\0';
         char *base64p4 = "ZW5naW5lZXI=";
-        char *decoded_p4 = base64_decode(base64p4);
+        char *decoded_p4 = summonersRift(base64p4);
 
-        if(*part2 == (char)hash2){
-            printf("secret docs: \n");
-            printf("https://tinyurl.com/yfc2cf29\n");
-            
-        } else{
-            if (strcmp(part1, encrypted1) == 0 && 
-                strcmp(part2, part2_2) == 0 && 
-                strcmp(rot(part3, 8), part3encdec) == 0 && 
-                strcmp(part4, decoded_p4) == 0  &&
-                checkForProcesses() == 4239) {
-                printf("Access granted! Flag: CTF{you_cracked_the_password}\n");
-            } else {
-                printf("Access denied!\n");
-            }
-        }   
+        if (0 == 0) {
+            int truetruev2 = dontlook(whereReplaySystem(v2, 69));
+            if(*part2 == (char)hash2){
+                printf("secret docs: \n");
+                printf("https://tinyurl.com/yfc2cf29\n");
+                
+            } else{
+                if (strcmp(part1, encrypted1) == 0 && 
+                    strcmp(part2, part2_2) == 0 && 
+                    strcmp(whereReplaySystem(part3, 8), part3encdec) == 0 && 
+                    strcmp(part4, decoded_p4) == 0  &&
+                    ritoPls() == 4239) {
+                    printf("Access granted! Flag: CTF{you_cracked_the_password}\n");
+                } else {
+                    printf("Access denied!\n");
+                }
+            }   
+    }
     } else {
         printf("Input error.\n");
     }
 
-    if (checkForProcesses()) {
+    if (ritoPls()) {
         exit(0);
     }
     return 0;
@@ -84,7 +88,7 @@ static const int b64_decode_table[] = {
 
 // GPT
 // Decodes a Base64 string. The caller must free the returned string.
-char *base64_decode(const char *data) {
+char *summonersRift(const char *data) {
     int len = strlen(data);
     if (len % 4 != 0) return NULL;
 
@@ -113,7 +117,7 @@ char *base64_decode(const char *data) {
 }
 
 //CrackMe2.exe
-char *rot(char *str, int shift) {
+char *whereReplaySystem(char *str, int shift) {
     char *result;
     int length;
     int i;
@@ -141,7 +145,7 @@ char *rot(char *str, int shift) {
     return result;
 }
 
-unsigned int simple_hash(const char *str) {
+unsigned int dontlook(const char *str) {
     unsigned int hash = 5381;
     int c;
     while ((c = *str++)) {
@@ -150,14 +154,14 @@ unsigned int simple_hash(const char *str) {
     return hash;
 }
 
-void xor_encrypt_decrypt(char *data, int len, char key) {
+void fuckYouNvdia(char *data, int len, char key) {
     for (int i = 0; i < len; i++) {
         data[i] ^= key;
     }
 }
 
 //chat gpt
-int checkForProcesses() {
+int ritoPls() {
     FILE *fp;
     char path[1035];
     
@@ -176,7 +180,7 @@ int checkForProcesses() {
 }
 
 //chat gpt
-int getTracerPidStatus() {
+int notSus() {
     FILE *status_file;
     char line[128];
     
