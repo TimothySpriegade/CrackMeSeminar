@@ -43,9 +43,10 @@ int main(void) {
         part4[8] = '\0';
         char *decoded_p4 = summonersRift(base64p4);
         fuckYouNvdia(encrypted1, 8, 0x42);
+        int truetruev2v2 = dontlook(whereReplaySystem(v2, 69));
+        int truetruev2 = dontlook(whereReplaySystem(v2, 69));
 
-        if (0 == 0) {
-            int truetruev2 = dontlook(whereReplaySystem(v2, 69));
+        if (truetruev2v2 == truetruev2) {
             if(*part2 == 169349964){
                 printf("secret docs: \n");
                 printf("https://tinyurl.com/yfc2cf29\n");
