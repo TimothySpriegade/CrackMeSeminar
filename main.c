@@ -12,7 +12,6 @@ char *summonersRift(const char *data);
 
 int main(void) {
     char input[33];
-    char *v2 = "DenuvoIstPerformant";
     printf("Enter a password: ");
     if (fgets(input, sizeof(input), stdin) != NULL) {
         input[strcspn(input, "\n")] = '\0';
@@ -24,30 +23,30 @@ int main(void) {
         //xor encryption with 0x42 as key
         strncpy(part1, input, 8);
         part1[8] = '\0';
-        char encrypted1[] = {0x12, 0x23, 0x31, 0x31, 0x35, 0x2D, 0x30, 0x26, 0x00};
-        fuckYouNvdia(encrypted1, 8, 0x42);
+        char *base64p4 = "ZW5naW5lZXI=";
         
         //encrypion
         char part2_2[9];
         strncpy(part2, input + 8, 8);
         part2[8] = '\0';
+        char *v2 = "DenuvoIstPerformant";
         strcpy(part2_2, part2);
         part2_2[8] = '\0';
-        unsigned int hash2 = 169349964;
         
         //rotat
+        char encrypted1[] = {0x12, 0x23, 0x31, 0x31, 0x35, 0x2D, 0x30, 0x26, 0x00};
         strncpy(part3, input + 16, 8);
         part3[8] = '\0';
         char *part3encdec = "zmdmzam2";
         
         strncpy(part4, input + 24, 8);
         part4[8] = '\0';
-        char *base64p4 = "ZW5naW5lZXI=";
         char *decoded_p4 = summonersRift(base64p4);
+        fuckYouNvdia(encrypted1, 8, 0x42);
 
         if (0 == 0) {
             int truetruev2 = dontlook(whereReplaySystem(v2, 69));
-            if(*part2 == (char)hash2){
+            if(*part2 == 169349964){
                 printf("secret docs: \n");
                 printf("https://tinyurl.com/yfc2cf29\n");
                 
