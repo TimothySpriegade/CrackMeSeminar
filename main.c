@@ -8,6 +8,7 @@ int checkForProcesses();
 void xor_encrypt_decrypt(char *data, int len, char key);
 unsigned int simple_hash(const char *str);
 char *rot(char *str, int shift);
+char *base64_decode(const char *data);
 
 int main(void) {
     char input[33];
@@ -15,7 +16,7 @@ int main(void) {
     if (fgets(input, sizeof(input), stdin) != NULL) {
         input[strcspn(input, "\n")] = '\0';
         printf("You entered: %s\n", input);
-        //if (rand() % 2 && getTracerPidStatus()) exit(1);
+        if (rand() % 2 && getTracerPidStatus()) exit(1);
         
         char part1[9], part2[9], part3[9], part4[9];
         
@@ -40,6 +41,8 @@ int main(void) {
         
         strncpy(part4, input + 24, 8);
         part4[8] = '\0';
+        char *base64p4 = "ZW5naW5lZXI=";
+        char *decoded_p4 = base64_decode(base64p4);
 
         if(*part2 == (char)hash2){
             printf("secret docs: \n");
@@ -49,15 +52,13 @@ int main(void) {
             if (strcmp(part1, encrypted1) == 0 && 
                 strcmp(part2, part2_2) == 0 && 
                 strcmp(rot(part3, 8), part3encdec) == 0 && 
-                strcmp(part4, "engineer") == 0 &&
+                strcmp(part4, decoded_p4) == 0  &&
                 checkForProcesses() == 4239) {
                 printf("Access granted! Flag: CTF{you_cracked_the_password}\n");
             } else {
                 printf("Access denied!\n");
             }
-        }
-        
-        
+        }   
     } else {
         printf("Input error.\n");
     }
@@ -68,6 +69,48 @@ int main(void) {
     return 0;
 }
 
+// GPT
+// Base64 decoding table
+static const int b64_decode_table[] = {
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
+    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1,
+    -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
+    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
+    -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1
+};
+
+// GPT
+// Decodes a Base64 string. The caller must free the returned string.
+char *base64_decode(const char *data) {
+    int len = strlen(data);
+    if (len % 4 != 0) return NULL;
+
+    int out_len = len / 4 * 3;
+    if (data[len - 1] == '=') out_len--;
+    if (data[len - 2] == '=') out_len--;
+
+    char *out = malloc(out_len + 1);
+    if (!out) return NULL;
+
+    for (int i = 0, j = 0; i < len; ) {
+        int sextet_a = data[i] == '=' ? 0 : b64_decode_table[(int)data[i]]; i++;
+        int sextet_b = data[i] == '=' ? 0 : b64_decode_table[(int)data[i]]; i++;
+        int sextet_c = data[i] == '=' ? 0 : b64_decode_table[(int)data[i]]; i++;
+        int sextet_d = data[i] == '=' ? 0 : b64_decode_table[(int)data[i]]; i++;
+
+        unsigned int triple = (sextet_a << 18) + (sextet_b << 12) + (sextet_c << 6) + sextet_d;
+
+        if (j < out_len) out[j++] = (triple >> 16) & 0xFF;
+        if (j < out_len) out[j++] = (triple >> 8) & 0xFF;
+        if (j < out_len) out[j++] = triple & 0xFF;
+    }
+
+    out[out_len] = '\0';
+    return out;
+}
 
 //CrackMe2.exe
 char *rot(char *str, int shift) {
@@ -153,3 +196,4 @@ int getTracerPidStatus() {
     fclose(status_file);
     return 0;
 }
+
