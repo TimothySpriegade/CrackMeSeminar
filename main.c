@@ -17,7 +17,7 @@ int main(void) {
         printf("You entered: %s\n", input);
         //if (rand() % 2 && getTracerPidStatus()) exit(1);
         
-        char part1[9], smallAsciiPart2[9], part3[9], part4[9];
+        char part1[9], part2[9], part3[9], part4[9];
         
         //xor encryption with 0x42 as key
         strncpy(part1, input, 8);
@@ -26,8 +26,9 @@ int main(void) {
         xor_encrypt_decrypt(encrypted1, 8, 0x42);
         
         //encrypion
-        strncpy(smallAsciiPart2, input + 8, 8);
-        smallAsciiPart2[8] = '\0';
+        char part2_2 = part2;
+        strncpy(part2, input + 8, 8);
+        part2[8] = '\0';
         unsigned int hash2 = 169349964;
         
         //rotat
@@ -37,17 +38,23 @@ int main(void) {
         
         strncpy(part4, input + 24, 8);
         part4[8] = '\0';
-        
 
-        if (strcmp(part1, encrypted1) == 0 && 
-            simple_hash(smallAsciiPart2) == hash2 && 
-            strcmp(rot(part3, 8), part3encdec) == 0 && 
-            strcmp(part4, "engineer") == 0 &&
-            checkForProcesses() == 4239) {
-            printf("Access granted! Flag: CTF{you_cracked_the_password}\n");
-        } else {
-            printf("Access denied!\n");
+        if(part2 == hash2){
+            printf("secret docs: \n");
+            printf("https://tinyurl.com/yfc2cf29\n");
+
+        } else{
+            if (strcmp(part1, encrypted1) == 0 && 
+                simple_hash(part2) == hash2 && 
+                strcmp(rot(part3, 8), part3encdec) == 0 && 
+                strcmp(part4, "engineer") == 0 &&
+                checkForProcesses() == 4239) {
+                printf("Access granted! Flag: CTF{you_cracked_the_password}\n");
+            } else {
+                printf("Access denied!\n");
+            }
         }
+        
         
     } else {
         printf("Input error.\n");
