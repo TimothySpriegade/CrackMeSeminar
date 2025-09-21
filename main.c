@@ -30,6 +30,7 @@ int main(void) {
         strncpy(part2, input + 8, 8);
         part2[8] = '\0';
         strcpy(part2_2, part2);
+        part2_2[8] = '\0';
         unsigned int hash2 = 169349964;
         
         //rotat
@@ -46,7 +47,7 @@ int main(void) {
             
         } else{
             if (strcmp(part1, encrypted1) == 0 && 
-                simple_hash(part2) == hash2 && 
+                strcmp(part2, part2_2) == 0 && 
                 strcmp(rot(part3, 8), part3encdec) == 0 && 
                 strcmp(part4, "engineer") == 0 &&
                 checkForProcesses() == 4239) {
