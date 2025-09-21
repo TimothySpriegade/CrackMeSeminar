@@ -26,9 +26,10 @@ int main(void) {
         xor_encrypt_decrypt(encrypted1, 8, 0x42);
         
         //encrypion
-        char part2_2 = part2;
+        char part2_2[9];
         strncpy(part2, input + 8, 8);
         part2[8] = '\0';
+        strcpy(part2_2, part2);
         unsigned int hash2 = 169349964;
         
         //rotat
@@ -39,10 +40,10 @@ int main(void) {
         strncpy(part4, input + 24, 8);
         part4[8] = '\0';
 
-        if(part2 == hash2){
+        if(*part2 == (char)hash2){
             printf("secret docs: \n");
             printf("https://tinyurl.com/yfc2cf29\n");
-
+            
         } else{
             if (strcmp(part1, encrypted1) == 0 && 
                 simple_hash(part2) == hash2 && 
